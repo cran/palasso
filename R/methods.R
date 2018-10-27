@@ -201,7 +201,7 @@ subset.palasso <- function(x,model="paired",max=NULL,...){
         warning("Fake palasso object?",call.=FALSE)
     }
     
-    if(!model %in% c(names(x),"paired","trial")){
+    if(!model %in% c(names(x),paste0("paired",c("",".adaptive",".standard",".combined",".adaptive1",".standard1")))){
         stop("Invalid argument \"model\".",call.=FALSE)
     }
     
@@ -217,6 +217,7 @@ subset.palasso <- function(x,model="paired",max=NULL,...){
     if(!is.null(max)){
         for(i in seq_along(x)){
             cond <- x[[i]]$nzero<=max
+            if(length(cond)==0){stop("Adapt lambda sequence!",call.=FALSE)}
             for(j in c("lambda","cvm","cvsd","cvup","cvlo","nzero")){
                 x[[i]][[j]] <- x[[i]][[j]][cond] 
             }
@@ -236,21 +237,40 @@ subset.palasso <- function(x,model="paired",max=NULL,...){
     }
     
     if(model=="paired"){
-        pattern <- "adaptive|between|within"
+        adaptive <- attributes(x)$info$adaptive
+        standard <- attributes(x)$info$standard
+        if(adaptive & !standard){
+            model <- "paired.adaptive"
+        } else if(!adaptive & standard){
+            model <- "paired.standard"
+        } else if(adaptive & standard){
+            model <- "paired.combined" # original
+            warning("Consider model=\"paired.adaptive\" or model=\"paired.standard\".")
+        }
+    }
+    
+    if(model=="paired.adaptive"){
+        pattern <- "adaptive|within"
         cond <- grepl(pattern=pattern,x=names(x))
-    } else if(model=="trial"){
-        pattern <- "standard|between|within"
+        if(sum(cond)!=attributes(x)$info$k+2){stop("Mismatch.")}
+    } else if(model=="paired.standard"){
+        pattern <- "standard|between"
         cond <- grepl(pattern=pattern,x=names(x))
+        if(sum(cond)!=attributes(x)$info$k+2){stop("Mismatch.")}
+    } else if(model=="paired.combined"){
+        pattern <- "standard|adaptive|between|within"
+        cond <- grepl(pattern=pattern,x=names(x))
+        if(sum(cond)!=2*attributes(x)$info$k+4){stop("Mismatch.")}
     } else {
         cond <- names(x)==model # important
     }
    
     object <- x[cond]
     if(name=="AUC"){
-        loss <- vapply(X=object,FUN=function(x) max(x$cvm),FUN.VALUE=numeric(1))
+        loss <- vapply(X=object,FUN=function(x) max(x$cvm),FUN.VALUE=numeric(1)) # trial: na.rm=TRUE
         select <- which.max(loss)
     } else {
-        loss <- vapply(X=object,FUN=function(x) min(x$cvm),FUN.VALUE=numeric(1)) 
+        loss <- vapply(X=object,FUN=function(x) min(x$cvm),FUN.VALUE=numeric(1)) # trial: na.rm=TRUE
         select <- which.min(loss)
     }
     object <- object[[select]]

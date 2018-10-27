@@ -8,12 +8,12 @@
 \alias{plot_box}
 \alias{plot_pairs}
 \alias{plot_diff}
-\title{Plot functions (manuscript)}
+\title{Plot functions for manuscript}
 \usage{
-plot_score(X, choice = NULL)
+plot_score(X, choice = NULL, ylab = "count")
 
 plot_table(X, margin = 2, labels = TRUE, colour = TRUE, las = 1,
-  cex = 1)
+  cex = 1, cutoff = NA)
 
 plot_circle(b, w, cutoff = NULL, group = NULL)
 
@@ -31,19 +31,19 @@ plot_diff(x, y, prob = 0.95, ylab = "", xlab = "", ...)
 
 \item{margin}{\eqn{0} (none), \eqn{1} (rows), or \eqn{2} (columns)}
 
+\item{cutoff}{numeric between \eqn{0} and \eqn{1}}
+
 \item{b}{between-group correlation\strong{:}
 vector of length \eqn{p}}
 
 \item{w}{within-group correlation\strong{:}
 matrix with \eqn{p} rows and \eqn{p} columns}
 
-\item{cutoff}{numeric between \eqn{0} and \eqn{1}}
-
 \item{group}{vector of length \eqn{p}}
 
 \item{x, y}{vectors of equal length}
 
-\item{...}{to do}
+\item{...}{additional arguments}
 
 \item{prob}{confidence interval\strong{:}
 numeric between \eqn{0} and \eqn{1}}

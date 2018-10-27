@@ -2,9 +2,10 @@
 % Please edit documentation in R/function.R
 \name{palasso}
 \alias{palasso}
+\alias{palasso-package}
 \title{Paired lasso}
 \usage{
-palasso(y, X, max = 10, ...)
+palasso(y = y, X = X, max = 10, ...)
 }
 \arguments{
 \item{y}{response\strong{:}
@@ -16,7 +17,7 @@ each with \eqn{n} rows (samples)
 and \eqn{p} columns (variables)}
 
 \item{max}{maximum number of non-zero coefficients\strong{:}
-positive numeric, or \code{NULL} \eqn{(no sparsity constraint)}}
+positive numeric, or \code{NULL} (no sparsity constraint)}
 
 \item{...}{further arguments for \code{\link[glmnet]{cv.glmnet}} or
 \code{\link[glmnet]{glmnet}}}
@@ -34,16 +35,21 @@ Available methods include
 and \code{\link[=summary.palasso]{summary}}.
 }
 \description{
-The function \code{palasso} fits the paired lasso. Use this function if you
-have \emph{paired covariates} and want a \emph{sparse model}.
+The function \code{palasso} fits the paired lasso.
+Use this function if you have \emph{paired covariates}
+and want a \emph{sparse model}.
 }
 \details{
 Let \code{x} denote one entry of the list \code{X}. See \link[glmnet]{glmnet}
 for alternative specifications of \code{y} and \code{x}. Among the further
 arguments, \code{family} must equal \code{"gaussian"}, \code{"binomial"},
 \code{"poisson"}, or \code{"cox"}, and \code{penalty.factor} must not be
-used. Fit additional lasso models by setting the hidden argument
-\code{standard} to \code{TRUE}.
+used.
+
+Hidden arguments:
+Deactivate adaptive lasso by setting \code{adaptive} to \code{FALSE},
+activate standard lasso by setting \code{standard} to \code{TRUE},
+and deactivate shrinkage by setting \code{shrink} to \code{FALSE}.
 }
 \examples{
 set.seed(1)
@@ -54,7 +60,7 @@ object <- palasso(y=y,X=X,family="binomial")
 
 }
 \references{
-A Rauschenberger, RX Menezes, MA Jonker, and MA van de Wiel (2018).
-"Sparse regression with paired covariates."
+A Rauschenberger, I Ciocanea-Teodorescu, RX Menezes, MA Jonker,
+and MA van de Wiel (2018). "Sparse regression with paired covariates."
 \emph{Manuscript in preparation.} \email{a.rauschenberger@vumc.nl}
 }
