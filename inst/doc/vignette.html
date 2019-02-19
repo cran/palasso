@@ -17,7 +17,7 @@
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
@@ -53,7 +53,29 @@ code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
 code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -100,6 +122,9 @@ object &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class=
 <h2>Paired lasso</h2>
 <p>But the paired lasso might be a better choice for exploiting both covariates groups at once:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">object &lt;-<span class="st"> </span><span class="kw">palasso</span>(<span class="dt">y=</span>y,<span class="dt">X=</span>X)</code></pre></div>
+<pre><code>## Registered S3 method overwritten by 'R.oo':
+##   method        from       
+##   throw.default R.methodsS3</code></pre>
 <p>In contrast to the standard lasso, the paired lasso accounts for the structure between the covariate groups.</p>
 <p>Given a limited number of non-zero coefficients, we expect the paired lasso to outperform the standard lasso:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">object &lt;-<span class="st"> </span><span class="kw">palasso</span>(<span class="dt">y=</span>y,<span class="dt">X=</span>X,<span class="dt">max=</span><span class="dv">10</span>)</code></pre></div>
