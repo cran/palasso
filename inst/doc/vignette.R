@@ -1,3 +1,6 @@
+## ----include=FALSE-------------------------------------------------------
+knitr::opts_chunk$set(echo=TRUE,eval=FALSE)
+
 ## ----eval=FALSE----------------------------------------------------------
 #  install.packages("palasso")
 
@@ -7,38 +10,38 @@
 #  install_github("rauschenberger/palasso")
 
 ## ---- message=FALSE------------------------------------------------------
-library(glmnet)
-library(palasso)
+#  library(glmnet)
+#  library(palasso)
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  attach(toydata)
 
 ## ---- echo=FALSE---------------------------------------------------------
-names <- names(toydata)
-for(i in 1:length(names)){
-    assign(names[i],toydata[[i]])
-}
-rm(names)
+#  names <- names(toydata)
+#  for(i in 1:length(names)){
+#      assign(names[i],toydata[[i]])
+#  }
+#  rm(names)
 
 ## ------------------------------------------------------------------------
-object <- glmnet(y=y,x=X[[1]])
-object <- glmnet(y=y,x=X[[2]])
+#  object <- glmnet(y=y,x=X[[1]])
+#  object <- glmnet(y=y,x=X[[2]])
 
 ## ------------------------------------------------------------------------
-object <- palasso(y=y,X=X)
+#  object <- palasso(y=y,X=X)
 
 ## ----results='hide'------------------------------------------------------
-object <- palasso(y=y,X=X,max=10)
+#  object <- palasso(y=y,X=X,max=10)
 
 ## ----results='hide'------------------------------------------------------
-weights(object)
+#  weights(object)
 
 ## ----results='hide'------------------------------------------------------
-fitted(object)
+#  fitted(object)
 
 ## ----results='hide'------------------------------------------------------
-residuals(object)
+#  residuals(object)
 
 ## ----results='hide'------------------------------------------------------
-predict(object,newdata=X)
+#  predict(object,newdata=X)
 

@@ -717,7 +717,7 @@ NULL
 #' @keywords internal
 #' 
 .predict <- function(y,X,nfolds.ext=5,nfolds.int=5,adaptive=TRUE,
-                     standard=TRUE,elastic=TRUE,family="binomial",...){
+                     standard=TRUE,elastic=TRUE,shrink=TRUE,family="binomial",...){
     
     if(survival::is.Surv(y)!=(family=="cox")){stop("Survival?")}
     
@@ -737,7 +737,8 @@ NULL
     if(standard){model <- c(model,paste0("standard_",c("x","z","xz")),
                             "between_xz","paired.standard")}
     if(adaptive&standard){model <- c(model,"paired.combined")}
-    if(elastic){model <- c(model,"elastic50","elastic95")}
+    if(elastic){model <- c(model,"elastic","elastic95")}
+    #if(elastic){model <- c(model,"elastic")}
     
     nzero <- c(3,4,5,10,15,20,25,50,Inf)
     
@@ -772,8 +773,17 @@ NULL
         #  elastic95 <- glmnet::cv.glmnet(alpha=0.95,y=y0,x=x0,foldid=fold.int,family=family,...)
         #}
         
+        #if(elastic){
+        #  x0 <- do.call(what="cbind",args=X0)
+        #  x1 <- do.call(what="cbind",args=X1)
+        #  #enet <- palasso:::enet(y=y0,x=x0,alpha=c(0.25,0.5,0.75,1),foldid=fold.int,family=family,
+        #  #                       dfmax=10,lambda.min.ratio=0.1,...)
+        #  enet <- palasso:::enet(y=y0,x=x0,alpha=1,family=family,dfmax=10)
+        #  # Set alpha to 0.5 or 0.95 !!!
+        #}
+        
         object <- palasso::palasso(y=y0,X=X0,foldid=fold.int,family=family,
-                                   standard=standard,elastic=elastic,...)
+                                   standard=standard,elastic=elastic,shrink=shrink,...)
         
         ### start trial ###
         max <- signif(sapply(object,function(x) max(x$lambda)),1)
@@ -790,6 +800,7 @@ NULL
        
         for(i in seq_along(nzero)){
             for(j in seq_along(model)){
+                #if(model[j]=="elastic" & nzero[i]!=10){next} # trial
                 if(family=="binomial"){
                     #if(model[j]=="elastic50"){
                     #  temp <- glmnet:::predict.cv.glmnet(object=elastic50,newx=x1,type="response",max=nzero[i])
@@ -797,6 +808,9 @@ NULL
                     #} else if(model[j]=="elastic95"){
                     #  temp <- glmnet:::predict.cv.glmnet(object=elastic95,newx=x1,type="response",max=nzero[i])
                     #  # BUG: max is not taken into account!
+                    #if(model[j]=="elastic"){
+                    #  #temp <- palasso:::predict.enet(object=enet,newdata=x1)
+                    #  temp <- palasso:::predict_enet(object=enet,newdata=x1,type="response")
                     #} else {
                       temp <- predict.palasso(object=object,
                         newdata=X1,model=model[j],type="response",max=nzero[i])
@@ -818,10 +832,19 @@ NULL
                 }
             }
         }
+        
+        #if(elastic){
+        #  if(family=="binomial"){
+        #          temp <- palasso:::predict.enet(object=enet,newdata=x1)
+        #          pred["10","elastic"][[1]][fold.ext==k] <- temp
+        #  }
+        # }
+        
     }
     
     for(i in seq_along(nzero)){
         for(j in seq_along(model)){
+            #if(model[j]=="elastic" & nzero[i]!=10){next} # trial
             if(family=="binomial"){
                 y_hat <- pred[i,j][[1]]
                 mse[i,j] <- mean((y_hat-y)^2)
@@ -889,4 +912,114 @@ cat("
     |    |  | |__ |  |  __|  __| |__|
     ")
 }
+
+
+.design <- function(x){
+  
+  if(length(x)==1){
+    n <- x
+    names <- seq_len(x)
+  } else {
+    n <- length(x)
+    names <- x
+  }
+  
+  # check input
+  if(n!=round(n)){stop("Provide integer n.")}
+  if(n<2){stop("Provide greater n.")}
+  if(length(n)!=1){stop("Provide single n.")}
+  
+  # compute
+  if(n%%2==1){
+    data <- c(0,rep(seq_len(n),times=n),seq_len(n-1))
+    X <- matrix(data=data,nrow=n+1,ncol=n)[-(n+1),]
+  }
+  if(n%%2==0){
+    data <- c(0,rep(1:(n-1),times=n+1))
+    X <- matrix(data=data,nrow=n,ncol=n)
+    temp <- 2*seq_len(n-1)
+    X[-1,n] <- ifelse(temp<n,temp,temp-n+1)
+  }
+  X[row(X)>=col(X)] <- 0
+  rownames(X) <- names
+  colnames(X) <- names
+  
+  # check output
+  con <- list()
+  con[[1]] <- dim(X)==c(n,n)
+  table <- table(X)
+  if(n%%2==1){
+    con[[2]] <- names(table)==c(0,seq_len(n))
+    con[[3]] <- table[-1]==choose(n,2)/n 
+  }
+  if(n%%2==0){
+    con[[2]] <- names(table)==c(0,seq_len(n-1))
+    con[[3]] <- table[-1]==choose(n,2)/(n-1)
+  }
+  con[[4]] <- table(X)[1]==choose(n,2)+n
+  con[[5]] <- sapply(seq_len(n),function(x) rowSums(X==x)+colSums(X==x))<=1
+  if(any(!unlist(con))){stop("Invalid output!")}
+  
+  # image(t(X)[,n:1])
+  return(X)
+}
+
+#' @title
+#' Combining p-values
+#'
+#' @description
+#' This function combines local \eqn{p}-values to a global \eqn{p}-value.
+#' 
+#' @export
+#' @keywords methods
+#' 
+#' @param x local \eqn{p}-values\strong{:}
+#' numeric vector of length \eqn{k}
+#' 
+#' @param method
+#' character \eqn{"fisher"}, \eqn{"tippet"}, \eqn{"sidak"}, or \eqn{"simes"}
+#' 
+#' @return
+#' These functions return a numeric vector of length \eqn{p}
+#' (main effects),
+#' or a numeric matrix with \eqn{p} rows and \eqn{p} columns
+#' (interaction effects).
+#' 
+#' @references
+#' Westfall, P. H. (2005). "Combining p-values".
+#' Encyclopedia of Biostatistics
+#' https://doi.org/10.1002/0470011815.b2a15181
+#'
+#' @examples
+#' # independence
+#' p <- runif(10)
+#' palasso:::.combine(p)
+#' 
+#' ## dependence 
+#' #runif <- function(n,cor=0){
+#' #    Sigma <- matrix(cor,nrow=n,ncol=n)
+#' #     diag(Sigma) <- 1
+#' #     mu <- rep(0,times=n)
+#' #     q <- MASS::mvrnorm(n=1,mu=mu,Sigma=Sigma)
+#' #     stats::pnorm(q=q)
+#' #}
+#' #p <- runif(n=10,cor=0.8)
+#' #combine(p)
+#' 
+.combine <- function(x,method="simes"){
+  x <- as.numeric(x)
+  x <- x[!is.na(x)]
+  if(any(x>1)){stop("Invalid p-value.")}
+  k <- length(x)
+  if(method=="fisher"){
+    1 - stats::pchisq(q=sum(-2*log(x)),df=2*k)
+  } else if(method=="tippet"){
+    min(1,min(x)*k)
+  } else if(method=="sidak"){
+    1 - (1-min(x))^k
+  } else if(method=="simes"){
+    min(k*sort(x)/(1:k))
+  }
+}
+
 
