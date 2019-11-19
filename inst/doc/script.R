@@ -1,10 +1,10 @@
-## ----setup,include=FALSE-------------------------------------------------
+## ----setup,include=FALSE------------------------------------------------------
 # Set eval to TRUE to create Figures.
 # Set echo to TRUE for html, but to FALSE for pdf.
 knitr::opts_chunk$set(eval=FALSE,echo=TRUE,fig.path="images/")
 eval <- FALSE # TRUE or FALSE
 
-## ----functions-----------------------------------------------------------
+## ----functions----------------------------------------------------------------
 #  ### Loading functions. ###
 #  
 #  inst <- rownames(utils::installed.packages())
@@ -107,7 +107,7 @@ eval <- FALSE # TRUE or FALSE
 #  }
 #  
 
-## ----get_isoform,eval=FALSE----------------------------------------------
+## ----get_isoform,eval=FALSE---------------------------------------------------
 #  ### Downloading "Isoform Expression Quantification". ###
 #  
 #  #rm(list=ls())
@@ -164,7 +164,7 @@ eval <- FALSE # TRUE or FALSE
 #  
 #  save(list=c("y","X"),file=file.path(path,"data","isoform_all.RData"))
 
-## ----get_miRNA,eval=FALSE------------------------------------------------
+## ----get_miRNA,eval=FALSE-----------------------------------------------------
 #  ### Downloading "miRNA Expression Quantification". ###
 #  
 #  #rm(list=ls())
@@ -197,7 +197,7 @@ eval <- FALSE # TRUE or FALSE
 #  
 #  save(list=c("y","X"),file=file.path(path,"data","miRNA_all.RData"))
 
-## ----get_gene,eval=FALSE-------------------------------------------------
+## ----get_gene,eval=FALSE------------------------------------------------------
 #  ### Downloading "Gene Expression Quantification". ###
 #  
 #  #rm(list=ls())
@@ -238,7 +238,7 @@ eval <- FALSE # TRUE or FALSE
 #  
 #  save(list=c("y","X"),file=file.path(path,"data","gene_all.RData"))
 
-## ----get_CNV,eval=FALSE--------------------------------------------------
+## ----get_CNV,eval=FALSE-------------------------------------------------------
 #  ### Downloading "Copy Number Variation". ###
 #  
 #  #rm(list=ls())
@@ -314,7 +314,7 @@ eval <- FALSE # TRUE or FALSE
 #  
 #  save(list=c("y","X","index"),file=file.path(path,"data","CNV_all.RData"))
 
-## ----do_filter,eval=FALSE------------------------------------------------
+## ----do_filter,eval=FALSE-----------------------------------------------------
 #  ### Extracting samples of interest. ###
 #  
 #  #rm(list=ls())
@@ -363,7 +363,7 @@ eval <- FALSE # TRUE or FALSE
 #  ## Understanding replicate samples:
 #  # http://gdac.broadinstitute.org/runs/sampleReports/latest/READ_Replicate_Samples.html
 
-## ----do_predict,eval=FALSE-----------------------------------------------
+## ----do_predict,eval=FALSE----------------------------------------------------
 #  ### Analysing the TCGA data. ###
 #  
 #  #rm(list=ls())
@@ -457,7 +457,7 @@ eval <- FALSE # TRUE or FALSE
 #  
 #  }
 
-## ----collect-------------------------------------------------------------
+## ----collect------------------------------------------------------------------
 #  # The function <<collect>> loads all files from PATH including PATTERN in the file name, loads OBJECT into a list, and executes a function call.
 #  #<<functions>>
 #  
@@ -521,7 +521,7 @@ eval <- FALSE # TRUE or FALSE
 #  #mean(a<b)
 #  
 
-## ----do_test,eval=eval---------------------------------------------------
+## ----do_test,eval=eval--------------------------------------------------------
 #  ### Testing for significant differences. ###
 #  
 #  #rm(list=ls())
@@ -596,7 +596,7 @@ eval <- FALSE # TRUE or FALSE
 #  xtable <- xtable::xtable(table,align=c("r","|","c","c","c","|","c","c","c"))
 #  xtable::print.xtable(xtable,type="latex",include.colnames=FALSE,sanitize.text.function=identity)
 
-## ----do_elastic,eval=eval------------------------------------------------
+## ----do_elastic,eval=eval-----------------------------------------------------
 #  ### Comparison with elastic net. ###
 #  #rm(list=ls())
 #  #<<functions>>
@@ -625,7 +625,7 @@ eval <- FALSE # TRUE or FALSE
 #  worse
 #  less
 
-## ----do_refit,eval=eval--------------------------------------------------
+## ----do_refit,eval=eval-------------------------------------------------------
 #  ### Analysing the refitted models. ###
 #  
 #  #rm(list=ls())
