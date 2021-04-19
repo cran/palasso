@@ -49,21 +49,22 @@ used.
 Hidden arguments:
 Deactivate adaptive lasso by setting \code{adaptive} to \code{FALSE},
 activate standard lasso by setting \code{standard} to \code{TRUE},
-and deactivate shrinkage by setting \code{shrink} to \code{FALSE}.
+and activate shrinkage by setting \code{shrink} to \code{TRUE}.
 }
 \examples{
 set.seed(1)
 n <- 50; p <- 20
 y <- rbinom(n=n,size=1,prob=0.5)
 X <- lapply(1:2,function(x) matrix(rnorm(n*p),nrow=n,ncol=p))
-object <- palasso(y=y,X=X,family="binomial",standard=TRUE)
+object <- palasso(y=y,X=X,family="binomial") # adaptive=TRUE,standard=FALSE
+names(object)
 
 }
 \references{
 A Rauschenberger, I Ciocanea-Teodorescu, RX Menezes, MA Jonker,
-and MA van de Wiel (2019). "Sparse classification with paired covariates."
-\emph{Advances in Data Analysis and Classification}. In press.
-\href{https://doi.org/10.1007/s11634-019-00375-6}{doi: 10.1007/s11634-019-00375-6},
+and MA van de Wiel (2020). "Sparse classification with paired covariates."
+\emph{Advances in Data Analysis and Classification}. 14:571-588.
+\doi{10.1007/s11634-019-00375-6},
 \href{https://link.springer.com/content/pdf/10.1007/s11634-019-00375-6.pdf}{pdf},
 \email{armin.rauschenberger@uni.lu}
 }

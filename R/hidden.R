@@ -575,7 +575,7 @@ plot_diff <- function(x,y,prob=0.95,ylab="",xlab="",...){
 #' Use \link[palasso]{palasso} to fit the paired lasso.
 #' 
 #' @examples
-#' \donttest{set.seed(1)
+#' \dontrun{set.seed(1)
 #' n <- 30; p <- 40
 #' X <- matrix(rpois(n*p,lambda=3),nrow=n,ncol=p)
 #' x <- palasso:::.prepare(X)
@@ -990,7 +990,7 @@ cat("
 #' @references
 #' Westfall, P. H. (2005). "Combining p-values".
 #' Encyclopedia of Biostatistics
-#' https://doi.org/10.1002/0470011815.b2a15181
+#' \doi{10.1002/0470011815.b2a15181}
 #'
 #' @examples
 #' # independence
