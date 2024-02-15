@@ -9,14 +9,14 @@ knitr::opts_chunk$set(echo=TRUE,eval=FALSE)
 #  library(devtools)
 #  install_github("rauschenberger/palasso")
 
-## ---- message=FALSE-----------------------------------------------------------
+## ----message=FALSE------------------------------------------------------------
 #  library(glmnet)
 #  library(palasso)
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  attach(toydata)
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 #  names <- names(toydata)
 #  for(i in 1:length(names)){
 #      assign(names[i],toydata[[i]])
