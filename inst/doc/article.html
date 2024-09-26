@@ -12,7 +12,7 @@
 
 
 
-<title>Sparse regression with paired covariates</title>
+<title>Article</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -235,23 +235,50 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Sparse regression with paired
-covariates</h1>
+<h1 class="title toc-ignore">Article</h1>
 
 
 
-<p>Click <a href="https://link.springer.com/content/pdf/10.1007/s11634-019-00375-6.pdf">here</a>
-to download article.</p>
-<div>
-<object data="https://link.springer.com/content/pdf/10.1007/s11634-019-00375-6.pdf" type="application/pdf" width="100%" height="500px">
-</object>
+<div id="sparse-classification-with-paired-covariates" class="section level1">
+<h1>Sparse classification with paired covariates</h1>
+<p><strong>Armin Rauschenberger</strong><span class="math inline">\(^{1,2}\)</span> <a href="https://orcid.org/0000-0001-6498-4801"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAALVBMVEUAAACmzjmmzjmmzjmmzjmmzjn////0+ebj8MHe7bXT55y82mus0UWmzjmSwCmNJ4LqAAAABnRSTlMAIGC/z+8mlFLTAAAAYElEQVR42m2PWw7AIAgEEdA+l/sft4Km1tj5IUwIsOSwoCJMjaToaIo+o5yGILtRDAElYgBmLm43TIKYKJW9KiF0Ybi2A8BH4CqT8Po7IfMOIZ6vcDw20Pb6S05ruCX+A9I+CQ+hA8ZPAAAAAElFTkSuQmCC" alt="AR" /></a>, <strong>Iuliana Ciocănea-Teodorescu</strong><span class="math inline">\(^1\)</span> <a href="https://orcid.org/0000-0003-2489-9025"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAALVBMVEUAAACmzjmmzjmmzjmmzjmmzjn////0+ebj8MHe7bXT55y82mus0UWmzjmSwCmNJ4LqAAAABnRSTlMAIGC/z+8mlFLTAAAAYElEQVR42m2PWw7AIAgEEdA+l/sft4Km1tj5IUwIsOSwoCJMjaToaIo+o5yGILtRDAElYgBmLm43TIKYKJW9KiF0Ybi2A8BH4CqT8Po7IfMOIZ6vcDw20Pb6S05ruCX+A9I+CQ+hA8ZPAAAAAElFTkSuQmCC" alt="ICT" /></a>, <strong>Marianne A. Jonker</strong><span class="math inline">\(^3\)</span> <a href="https://orcid.org/0000-0003-0134-8482"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAALVBMVEUAAACmzjmmzjmmzjmmzjmmzjn////0+ebj8MHe7bXT55y82mus0UWmzjmSwCmNJ4LqAAAABnRSTlMAIGC/z+8mlFLTAAAAYElEQVR42m2PWw7AIAgEEdA+l/sft4Km1tj5IUwIsOSwoCJMjaToaIo+o5yGILtRDAElYgBmLm43TIKYKJW9KiF0Ybi2A8BH4CqT8Po7IfMOIZ6vcDw20Pb6S05ruCX+A9I+CQ+hA8ZPAAAAAElFTkSuQmCC" alt="MAJ" /></a>, <strong>Renée X. Menezes</strong><span class="math inline">\(^1\)</span> <a href="https://orcid.org/0000-0002-1378-2721"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAALVBMVEUAAACmzjmmzjmmzjmmzjmmzjn////0+ebj8MHe7bXT55y82mus0UWmzjmSwCmNJ4LqAAAABnRSTlMAIGC/z+8mlFLTAAAAYElEQVR42m2PWw7AIAgEEdA+l/sft4Km1tj5IUwIsOSwoCJMjaToaIo+o5yGILtRDAElYgBmLm43TIKYKJW9KiF0Ybi2A8BH4CqT8Po7IfMOIZ6vcDw20Pb6S05ruCX+A9I+CQ+hA8ZPAAAAAElFTkSuQmCC" alt="RXM" /></a>, and <strong>Mark A. van de Wiel</strong><span class="math inline">\(^{1,4}\)</span> <a href="https://orcid.org/0000-0003-4780-8472"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAALVBMVEUAAACmzjmmzjmmzjmmzjmmzjn////0+ebj8MHe7bXT55y82mus0UWmzjmSwCmNJ4LqAAAABnRSTlMAIGC/z+8mlFLTAAAAYElEQVR42m2PWw7AIAgEEdA+l/sft4Km1tj5IUwIsOSwoCJMjaToaIo+o5yGILtRDAElYgBmLm43TIKYKJW9KiF0Ybi2A8BH4CqT8Po7IfMOIZ6vcDw20Pb6S05ruCX+A9I+CQ+hA8ZPAAAAAElFTkSuQmCC" alt="MvdW" /></a></p>
+<p><span class="math inline">\(^1\)</span> Department of Epidemiology
+and Biostatistics, Amsterdam UMC, VU University Amsterdam, Amsterdam,
+The Netherlands</p>
+<p><span class="math inline">\(^2\)</span> Luxembourg Centre for Systems
+Biomedicine, University of Luxembourg, Esch-sur-Alzette, Luxembourg</p>
+<p><span class="math inline">\(^3\)</span> Department for Health
+Evidence, Radboud University Medical Center, Nijmegen, The
+Netherlands</p>
+<p><span class="math inline">\(^4\)</span> MRC Biostatistics Unit,
+University of Cambridge, Cambridge, UK</p>
+<div id="abstract" class="section level2">
+<h2>Abstract</h2>
+<p>This paper introduces the paired lasso: a generalisation of the lasso
+for paired covariate settings. Our aim is to predict a single response
+from two high-dimensional covariate sets. We assume a one-to-one
+correspondence between the covariate sets, with each covariate in one
+set forming a pair with a covariate in the other set. Paired covariates
+arise, for example, when two transformations of the same data are
+available. It is often unknown which of the two covariate sets leads to
+better predictions, or whether the two covariate sets complement each
+other. The paired lasso addresses this problem by weighting the
+covariates to improve the selection from the covariate sets and the
+covariate pairs. It thereby combines information from both covariate
+sets and accounts for the paired structure. We tested the paired lasso
+on more than 2000 classification problems with experimental genomics
+data, and found that for estimating sparse but predictive models, the
+paired lasso outperforms the standard and the adaptive lasso. The R
+package palasso is available from CRAN.</p>
 </div>
-<div id="reference" class="section level2">
-<h2>Reference</h2>
-<p>A Rauschenberger, I Ciocanea-Teodorescu, RX Menezes, MA Jonker, and
-MA van de Wiel (2020). “Sparse classification with paired covariates”.
-<em>Advances in Data Analysis and Classification.</em> 14:571-588. <a href="https://doi.org/10.1007/s11634-019-00375-6">doi:
-10.1007/s11634-019-00375-6</a></p>
+<div id="full-text-open-access" class="section level2">
+<h2>Full text (open access)</h2>
+<p>Rauschenberger et al. (2020). “Sparse classification with paired
+covariates”. <em>Advances in Data Analysis and Classification</em>
+14:571-588. <a href="https://doi.org/10.1007/s11634-019-00375-6">doi:
+10.1007/s11634-019-00375-6</a>. (Click <a href="https://link.springer.com/content/pdf/10.1007/s11634-019-00375-6.pdf">here</a>
+to access PDF.)</p>
+</div>
 </div>
 
 

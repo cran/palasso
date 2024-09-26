@@ -1,3 +1,7 @@
+## palasso 1.0.0 (2024-09-24)
+
+* updated documentation
+
 ## palasso 0.0.7 (2019-11-19)
 
 * added reference

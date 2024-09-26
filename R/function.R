@@ -38,12 +38,21 @@
 #' and \code{\link[=summary.palasso]{summary}}.
 #' 
 #' @references
-#' A Rauschenberger, I Ciocanea-Teodorescu, RX Menezes, MA Jonker,
-#' and MA van de Wiel (2020). "Sparse classification with paired covariates."
-#' \emph{Advances in Data Analysis and Classification}. 14:571-588.
-#' \doi{10.1007/s11634-019-00375-6},
-#' \href{https://link.springer.com/content/pdf/10.1007/s11634-019-00375-6.pdf}{pdf},
-#' \email{armin.rauschenberger@uni.lu}
+#' \href{https://orcid.org/0000-0001-6498-4801}{Armin Rauschenberger},
+#' \href{https://orcid.org/0000-0003-2489-9025}{Iiuliana Ciocanea-Teodorescu},
+#' \href{https://orcid.org/0000-0003-0134-8482}{Marianne A. Jonker},
+#' \href{https://orcid.org/0000-0002-1378-2721}{Renee X. Menezes},
+#' and
+#' \href{https://orcid.org/0000-0003-4780-8472}{Mark A. van de Wiel}
+#' (2020).
+#' "Sparse classification with paired covariates."
+#' \emph{Advances in Data Analysis and Classification}
+#' 14:571-588.
+#' \doi{10.1007/s11634-019-00375-6}.
+#' (Click 
+#' \href{https://link.springer.com/content/pdf/10.1007/s11634-019-00375-6.pdf}{here}
+#' to access PDF.
+#' Contact: \email{armin.rauschenberger@uni.lu}.)
 #' 
 #' @examples
 #' set.seed(1)
@@ -96,6 +105,8 @@ palasso <- function(y=y,X=X,max=10,...){
 #' Arguments for "palasso"
 #' 
 #' @name arguments
+#' 
+#' @keywords internal
 #' 
 #' @description
 #' This page lists the arguments for the (internal) "palasso" function(s).
@@ -171,6 +182,8 @@ palasso <- function(y=y,X=X,max=10,...){
 NULL
 
 #' @title Arguments
+#' 
+#' @keywords internal
 #' 
 #' @description
 #' Checks the validity of the provided arguments.
@@ -248,6 +261,8 @@ NULL
 #' @title
 #' Dimensionality
 #' 
+#' @keywords internal
+#' 
 #' @description
 #' This function extracts the dimensions.
 #' 
@@ -309,6 +324,8 @@ NULL
 
 #' @title Cross-validation folds
 #' 
+#' @keywords internal
+#' 
 #' @description
 #' Assigns samples to cross-validation folds,
 #' balancing the folds in the case of a binary or survival response.
@@ -335,6 +352,10 @@ NULL
 }
 
 #' @title Model bag
+#' 
+#' @keywords internal
+#' 
+#' @keywords internal
 #' 
 #' @description Fits all models from the chosen bag.
 #' 
@@ -490,6 +511,8 @@ NULL
 
 #' @title Correlation
 #' 
+#' @keywords internal
+#' 
 #' @description
 #' Calculates the correlation between the response and the covariates.
 #' Shrinks the correlation coefficients for each covariate set separately.
@@ -526,6 +549,9 @@ NULL
 }
 
 #' @title Weighting schemes
+#' 
+#' @keywords internal
+#' 
 #' @description
 #' Calculates the weighting schemes.
 #' 
@@ -577,6 +603,8 @@ NULL
 
 #' @title Cross-validation
 #' 
+#' @keywords internal
+#' 
 #' @description
 #' Repeatedly leaves out samples, and predicts their response.
 #' 
@@ -622,6 +650,8 @@ NULL
 }
 
 #' @title Cross-validation loss
+#' 
+#' @keywords internal
 #' 
 #' @description
 #' Calculates mean cross-validated loss
@@ -703,6 +733,8 @@ NULL
 }
 
 #' @title Extraction
+#' 
+#' @keywords internal
 #' 
 #' @description
 #' Extracts \code{cv.glmnet}-like object.
